@@ -1,33 +1,21 @@
 package rentalapp.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import lombok.Data;
 
 import java.sql.Timestamp;
 
 @Data
 @Entity
-@Table(name = "car", schema = "rentaldb", catalog = "")
-public class CarEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+public class CarEntity extends VehicleEntity {
 
     @Basic
-    @Column(name = "aquisition_date")
-    private Timestamp aquisitionDate;
+    @Column(name = "acquisition_date")
+    private Timestamp acquisitionDate;
 
     @Basic
     @Column(name = "description")
     private String description;
-
-    @Basic
-    @Column(name = "vehicle_id")
-    private int vehicleId;
-
-    @Basic
-    @Column(name = "vehicle_vehicle_picture_id")
-    private int vehicleVehiclePictureId;
-
 }

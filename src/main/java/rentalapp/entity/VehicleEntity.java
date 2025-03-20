@@ -6,7 +6,8 @@ import rentalapp.enums.VehicleStatus;
 
 @Data
 @Entity
-@Table(name = "vehicle", schema = "rentaldb", catalog = "")
+@Table(name = "vehicle", schema = "rentaldb")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class VehicleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +30,10 @@ public class VehicleEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private VehicleStatus status;
+
+    @Basic
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 
     @Basic
     @Column(name = "manufacturer_id")
