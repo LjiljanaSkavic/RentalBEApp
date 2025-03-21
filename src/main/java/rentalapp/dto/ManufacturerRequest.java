@@ -3,8 +3,7 @@ package rentalapp.dto;
 import lombok.Data;
 
 @Data
-public class ManufacturerDTO {
-    private int id;
+public class ManufacturerRequest {
     private String name;
     private String country;
     private String address;

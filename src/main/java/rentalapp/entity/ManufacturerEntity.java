@@ -17,8 +17,8 @@ public class ManufacturerEntity {
     private String name;
 
     @Basic
-    @Column(name = "county")
-    private String county;
+    @Column(name = "country")
+    private String country;
 
     @Basic
     @Column(name = "address")
@@ -36,4 +36,7 @@ public class ManufacturerEntity {
     @Column(name = "fax")
     private String fax;
 
+    @Basic
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 }

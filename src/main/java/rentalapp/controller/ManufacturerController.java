@@ -1,10 +1,11 @@
 package rentalapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import rentalapp.dto.ManufacturerDTO;
+import rentalapp.dto.ManufacturerRequest;
 import rentalapp.dto.ManufacturerSearchResult;
 import rentalapp.service.ManufacturerService;
 
@@ -19,4 +20,39 @@ public class ManufacturerController {
                                                    @RequestParam(defaultValue = "10") int size) {
         return manufacturerService.getAllManufacturersPaginated(page, size);
     }
+
+    @PostMapping
+    public ResponseEntity<ManufacturerDTO> createManufacturer(@RequestBody ManufacturerRequest manufacturerRequest) {
+        ManufacturerDTO manufacturerDTO = manufacturerService.createManufacturer(manufacturerRequest);
+
+        if (manufacturerDTO != null) {
+            return new ResponseEntity<>(manufacturerDTO, HttpStatus.CREATED);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ManufacturerDTO> updateManufacturer(@PathVariable Integer id,
+                                                              @RequestBody ManufacturerRequest manufacturerRequest) {
+        ManufacturerDTO manufacturerDTO = manufacturerService.updateManufacturer(id, manufacturerRequest);
+
+        if (manufacturerDTO != null) {
+            return new ResponseEntity<>(manufacturerDTO, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteManufacturer(@PathVariable Integer id) {
+        boolean isDeleted = manufacturerService.deleteManufacturer(id);
+
+        if (isDeleted) {
+            return new ResponseEntity<>("Manufacturer deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Failed to delete manufacturer", HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
