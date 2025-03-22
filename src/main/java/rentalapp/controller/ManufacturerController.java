@@ -9,6 +9,8 @@ import rentalapp.dto.ManufacturerRequest;
 import rentalapp.dto.ManufacturerSearchResult;
 import rentalapp.service.ManufacturerService;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/manufacturers")
 public class ManufacturerController {
@@ -45,13 +47,13 @@ public class ManufacturerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteManufacturer(@PathVariable Integer id) {
+    public ResponseEntity<Map<String, String>> deleteManufacturer(@PathVariable Integer id) {
         boolean isDeleted = manufacturerService.deleteManufacturer(id);
 
         if (isDeleted) {
-            return new ResponseEntity<>("Manufacturer deleted successfully", HttpStatus.OK);
+            return new ResponseEntity<>(Map.of("message", "Manufacturer deleted successfully"), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Failed to delete manufacturer", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(Map.of("message", "Failed to delete manufacturer"), HttpStatus.NOT_FOUND);
         }
     }
 
