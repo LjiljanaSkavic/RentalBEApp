@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import lombok.Data;
 
 @Data
-@Entity
+@Entity(name = "electric_bike")
 public class ElectricBikeEntity extends VehicleEntity {
     @Basic
     @Column(name = "range_per_charge")

@@ -4,10 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import rentalapp.entity.VehicleEntity;
+import rentalapp.entity.ElectricBikeEntity;
 
 @Repository
-public interface VehicleRepository extends JpaRepository<VehicleEntity, Integer> {
-
-    Page<VehicleEntity> findAllByIsDeletedFalse(Pageable page);
+public interface ElectricBikeRepository extends JpaRepository<ElectricBikeEntity, Integer> {
+    Page<ElectricBikeEntity> findAllByIsDeletedFalse(Pageable pageable);
 }

@@ -5,14 +5,14 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class VehicleSearchResult {
-    private List<VehicleDTO> vehicles;
+public class VehicleSearchResult<T> {
+    private List<T> vehicles;
     private long totalElements;
     private int totalPages;
     private int pageNumber;
     private int pageSize;
 
-    public VehicleSearchResult(List<VehicleDTO> vehicles, long totalElements, int totalPages, int pageNumber, int pageSize) {
+    public VehicleSearchResult(List<T> vehicles, long totalElements, int totalPages, int pageNumber, int pageSize) {
         this.vehicles = vehicles;
         this.totalElements = totalElements;
         this.totalPages = totalPages;

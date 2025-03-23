@@ -8,7 +8,7 @@ import lombok.Data;
 import java.sql.Timestamp;
 
 @Data
-@Entity
+@Entity(name = "car")
 public class CarEntity extends VehicleEntity {
 
     @Basic
