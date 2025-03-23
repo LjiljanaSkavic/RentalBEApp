@@ -28,6 +28,10 @@ public class MalfunctionEntity {
     private String description;
 
     @Basic
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
+
+    @Basic
     @Column(name = "vehicle_id")
     private int vehicleId;
 

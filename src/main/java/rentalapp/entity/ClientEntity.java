@@ -17,6 +17,10 @@ public class ClientEntity {
     private String cardNumber;
 
     @Basic
+    @Column(name = "is_blocked")
+    private boolean isBlocked;
+
+    @Basic
     @Column(name = "user_id")
     private int userId;
 }
