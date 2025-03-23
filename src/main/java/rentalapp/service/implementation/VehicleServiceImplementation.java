@@ -11,95 +11,40 @@ import rentalapp.entity.CarEntity;
 import rentalapp.entity.ElectricBikeEntity;
 import rentalapp.entity.ElectricScooterEntity;
 import rentalapp.entity.VehicleEntity;
-import rentalapp.repository.CarRepository;
-import rentalapp.repository.ElectricBikeRepository;
-import rentalapp.repository.ElectricScooterRepository;
+import rentalapp.enums.VehicleCategory;
 import rentalapp.repository.VehicleRepository;
+import rentalapp.repository.VehicleRepositoryFactory;
 import rentalapp.service.VehicleService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class VehicleServiceImplementation implements VehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
     @Autowired
-    private CarRepository carRepository;
-    @Autowired
-    private ElectricBikeRepository electricBikeRepository;
-    @Autowired
-    private ElectricScooterRepository electricScooterRepository;
+    private VehicleRepositoryFactory vehicleRepositoryFactory;
     @Autowired
     private ModelMapper modelMapper;
 
     @Override
-    public VehicleSearchResult<?> getAllVehiclesPaginated(int page, int size, String category) {
+    public VehicleSearchResult<VehicleDTO> getAllVehiclesPaginated(int page, int size, VehicleCategory category) {
 
-        if ("All".equals(category)) {
             Pageable pageable = PageRequest.of(page, size);
-            Page<VehicleEntity> vehicleEntities = vehicleRepository.findAllByIsDeletedFalse(pageable);
+            Page<VehicleEntity> vehicleEntities = vehicleRepositoryFactory.get(category).findAllByIsDeletedFalse(pageable);
 
             List<VehicleDTO> vehicleDTOs = vehicleEntities.stream()
-                    .map(this::convertToDTO)
-                    .collect(Collectors.toList());
+                    .map(obj -> modelMapper.map(obj, VehicleDTO.class))
+                    .toList();
 
-            return new VehicleSearchResult<VehicleDTO>(
+            return new VehicleSearchResult<>(
                     vehicleDTOs,
                     vehicleEntities.getTotalElements(),
                     vehicleEntities.getTotalPages(),
                     vehicleEntities.getNumber(),
                     vehicleEntities.getSize()
             );
-        } else if ("Car".equals(category)) {
-            Pageable pageable = PageRequest.of(page, size);
-            Page<CarEntity> carEntities = carRepository.findAllByIsDeletedFalse(pageable);
 
-            List<CarDTO> carDTOS = carEntities.stream()
-                    .map(this::convertCarToDTO)
-                    .collect(Collectors.toList());
-
-            return new VehicleSearchResult<CarDTO>(
-                    carDTOS,
-                    carEntities.getTotalElements(),
-                    carEntities.getTotalPages(),
-                    carEntities.getNumber(),
-                    carEntities.getSize()
-            );
-        } else if ("ElectricBike".equals(category)) {
-            Pageable pageable = PageRequest.of(page, size);
-            Page<ElectricBikeEntity> electricBikeEntities = electricBikeRepository.findAllByIsDeletedFalse(pageable);
-
-            List<ElectricBikeDTO> electricBikeDTOS = electricBikeEntities.stream()
-                    .map(this::convertElectricBikeToDTO)
-                    .collect(Collectors.toList());
-
-            return new VehicleSearchResult<ElectricBikeDTO>(
-                    electricBikeDTOS,
-                    electricBikeEntities.getTotalElements(),
-                    electricBikeEntities.getTotalPages(),
-                    electricBikeEntities.getNumber(),
-                    electricBikeEntities.getSize()
-            );
-        } else if ("ElectricScooter".equals(category)) {
-            Pageable pageable = PageRequest.of(page, size);
-            Page<ElectricScooterEntity> electricScooters = electricScooterRepository.findAllByIsDeletedFalse(pageable);
-
-            List<ElectricScooterDTO> electricScooterDTOS = electricScooters.stream()
-                    .map(this::convertElectricScooterToDTO)
-                    .collect(Collectors.toList());
-
-            return new VehicleSearchResult<ElectricScooterDTO>(
-                    electricScooterDTOS,
-                    electricScooters.getTotalElements(),
-                    electricScooters.getTotalPages(),
-                    electricScooters.getNumber(),
-                    electricScooters.getSize()
-            );
-        } else {
-            return new VehicleSearchResult<>(new ArrayList<>(), 0, 0, 0, 0);
-        }
     }
 
     @Override

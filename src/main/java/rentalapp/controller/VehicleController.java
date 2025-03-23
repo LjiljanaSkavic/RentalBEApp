@@ -1,10 +1,12 @@
 package rentalapp.controller;
 
+import jakarta.annotation.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rentalapp.dto.VehicleSearchResult;
+import rentalapp.enums.VehicleCategory;
 import rentalapp.service.VehicleService;
 
 import java.util.Map;
@@ -18,7 +20,7 @@ public class VehicleController {
     @GetMapping
     public VehicleSearchResult getAllVehicles(@RequestParam(defaultValue = "0") int page,
                                               @RequestParam(defaultValue = "10") int size,
-                                              @RequestParam(defaultValue = "") String category) {
+                                              @RequestParam @Nullable VehicleCategory category) {
         return vehicleService.getAllVehiclesPaginated(page, size, category);
     }
 

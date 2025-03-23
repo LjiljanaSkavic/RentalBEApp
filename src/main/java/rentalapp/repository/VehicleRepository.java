@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import rentalapp.entity.VehicleEntity;
 
 @Repository
-public interface VehicleRepository extends JpaRepository<VehicleEntity, Integer> {
+public interface VehicleRepository extends JpaRepository<VehicleEntity, Integer>, VehicleCommonRepository {
 
-    Page<VehicleEntity> findAllByIsDeletedFalse(Pageable page);
 }
