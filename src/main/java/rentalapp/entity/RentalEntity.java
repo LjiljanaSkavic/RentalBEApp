@@ -47,5 +47,7 @@ public class RentalEntity {
     @Basic
     @Column(name = "client_id")
     private int clientId;
-
+    @Basic
+    @Column(name = "vehicle_id")
+    private int vehicleId;
 }
