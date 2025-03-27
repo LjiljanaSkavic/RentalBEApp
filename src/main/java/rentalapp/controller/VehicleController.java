@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rentalapp.dto.VehicleDTO;
 import rentalapp.dto.VehicleSearchResult;
 import rentalapp.enums.VehicleCategory;
 import rentalapp.service.VehicleService;
@@ -18,14 +19,14 @@ public class VehicleController {
     private VehicleService vehicleService;
 
     @GetMapping
-    public VehicleSearchResult getAllVehicles(@RequestParam(defaultValue = "0") int page,
-                                              @RequestParam(defaultValue = "10") int size,
-                                              @RequestParam @Nullable VehicleCategory category) {
+    public VehicleSearchResult<? extends VehicleDTO> getAllVehicles(@RequestParam(defaultValue = "0") int page,
+                                                                    @RequestParam(defaultValue = "10") int size,
+                                                                    @RequestParam @Nullable VehicleCategory category) {
         return vehicleService.getAllVehiclesPaginated(page, size, category);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, String>> deleteManufacturer(@PathVariable Integer id) {
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Integer id) {
         boolean isDeleted = vehicleService.deleteVehicle(id);
 
         if (isDeleted) {

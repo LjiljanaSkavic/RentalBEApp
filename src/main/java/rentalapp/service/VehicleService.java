@@ -5,7 +5,7 @@ import rentalapp.dto.VehicleSearchResult;
 import rentalapp.enums.VehicleCategory;
 
 public interface VehicleService {
-    VehicleSearchResult<VehicleDTO> getAllVehiclesPaginated(int page, int size, VehicleCategory category);
+    VehicleSearchResult<? extends VehicleDTO> getAllVehiclesPaginated(int page, int size, VehicleCategory category);
 
     boolean deleteVehicle(Integer id);
 }

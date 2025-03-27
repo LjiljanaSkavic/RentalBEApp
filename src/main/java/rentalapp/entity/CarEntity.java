@@ -5,7 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Data;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Data
 @Entity(name = "car")
@@ -13,7 +13,7 @@ public class CarEntity extends VehicleEntity {
 
     @Basic
     @Column(name = "acquisition_date")
-    private Timestamp acquisitionDate;
+    private LocalDate acquisitionDate;
 
     @Basic
     @Column(name = "description")
