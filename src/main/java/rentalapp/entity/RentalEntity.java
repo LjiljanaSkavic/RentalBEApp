@@ -2,7 +2,6 @@ package rentalapp.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.locationtech.jts.geom.Point;
 
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -24,12 +23,18 @@ public class RentalEntity {
     @Column(name = "end")
     private Timestamp end;
 
-    @Basic
-    @Column(name = "start_location", columnDefinition = "POINT")
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "lat", column = @Column(name = "start_location_lat")),
+            @AttributeOverride(name = "lng", column = @Column(name = "start_location_lng"))
+    })
     private Point startLocation;
 
-    @Basic
-    @Column(name = "end_location", columnDefinition = "POINT")
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "lat", column = @Column(name = "end_location_lat")),
+            @AttributeOverride(name = "lng", column = @Column(name = "end_location_lng"))
+    })
     private Point endLocation;
 
     @Basic

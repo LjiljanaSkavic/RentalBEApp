@@ -1,7 +1,7 @@
 package rentalapp.dto;
 
 import lombok.Data;
-import org.locationtech.jts.geom.Point;
+import rentalapp.entity.Point;
 
 import java.sql.Time;
 import java.sql.Timestamp;
