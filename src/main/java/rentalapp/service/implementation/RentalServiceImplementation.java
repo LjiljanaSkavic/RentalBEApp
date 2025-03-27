@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import rentalapp.dto.RentalDTO;
-import rentalapp.dto.RentalSearchResult;
+import rentalapp.dto.SearchResult;
 import rentalapp.entity.RentalEntity;
 import rentalapp.entity.UserEntity;
 import rentalapp.repository.RentalRepository;
@@ -33,7 +33,7 @@ public class RentalServiceImplementation implements RentalService {
     private ModelMapper modelMapper;
 
     @Override
-    public RentalSearchResult getAllRentalsPaginated(int page, int size) {
+    public SearchResult getAllRentalsPaginated(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<RentalEntity> rentalEntity = rentalRepository.findAll(pageable);
 
@@ -41,7 +41,7 @@ public class RentalServiceImplementation implements RentalService {
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
 
-        return new RentalSearchResult(
+        return new SearchResult(
                 rentalDTOs,
                 rentalEntity.getTotalElements(),
                 rentalEntity.getTotalPages(),

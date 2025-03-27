@@ -1,7 +1,7 @@
 package rentalapp.service;
 
-import rentalapp.dto.RentalSearchResult;
+import rentalapp.dto.SearchResult;
 
 public interface RentalService {
-    RentalSearchResult getAllRentalsPaginated(int page, int size);
+    SearchResult getAllRentalsPaginated(int page, int size);
 }

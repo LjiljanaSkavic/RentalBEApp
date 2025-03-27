@@ -6,9 +6,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import rentalapp.dto.SearchResult;
 import rentalapp.dto.VehicleDTO;
 import rentalapp.dto.VehicleReqDTO;
-import rentalapp.dto.VehicleSearchResult;
 import rentalapp.entity.VehicleEntity;
 import rentalapp.enums.VehicleCategory;
 import rentalapp.repository.VehicleRepository;
@@ -27,7 +27,7 @@ public class VehicleServiceImplementation implements VehicleService {
     private ModelMapper modelMapper;
 
     @Override
-    public VehicleSearchResult<? extends VehicleDTO> getAllVehiclesPaginated(int page, int size, VehicleCategory category) {
+    public SearchResult<? extends VehicleDTO> getAllVehiclesPaginated(int page, int size, VehicleCategory category) {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<VehicleEntity> vehicleEntities = vehicleRepositoryFactory.get(category).findAllByIsDeletedFalse(pageable);
@@ -36,7 +36,7 @@ public class VehicleServiceImplementation implements VehicleService {
                 .map(obj -> modelMapper.map(obj, category.getDtoClass()))
                 .toList();
 
-        return new VehicleSearchResult<>(
+        return new SearchResult<>(
                 vehicleDTOs,
                 vehicleEntities.getTotalElements(),
                 vehicleEntities.getTotalPages(),
