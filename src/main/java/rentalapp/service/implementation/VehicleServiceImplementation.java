@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import rentalapp.dto.VehicleDTO;
+import rentalapp.dto.VehicleReqDTO;
 import rentalapp.dto.VehicleSearchResult;
 import rentalapp.entity.VehicleEntity;
 import rentalapp.enums.VehicleCategory;
@@ -43,6 +44,33 @@ public class VehicleServiceImplementation implements VehicleService {
                 vehicleEntities.getSize()
         );
 
+    }
+
+    @Override
+    public VehicleDTO update(Integer id, VehicleReqDTO dto) {
+        VehicleEntity vehicleEntity = vehicleRepository.findById(id).orElseThrow();
+        modelMapper.map(dto, vehicleEntity);
+        vehicleEntity.setId(id);
+        vehicleRepository.save(vehicleEntity);
+        return modelMapper.map(vehicleEntity, dto.getCategory().getDtoClass());
+    }
+
+
+    @Override
+    public VehicleDTO get(Integer id) {
+        VehicleEntity vehicleEntity = vehicleRepository.findById(id).orElseThrow();
+        return modelMapper.map(
+                vehicleEntity,
+                VehicleCategory.fromEttyClass(vehicleEntity.getClass()).getDtoClass()
+        );
+    }
+
+    @Override
+    public VehicleDTO create(VehicleReqDTO dto) {
+        VehicleEntity vehicleEntity = modelMapper.map(dto, dto.getCategory().getEttyClass());
+        vehicleEntity.setId(null);
+        vehicleRepository.save(vehicleEntity);
+        return modelMapper.map(vehicleEntity, dto.getCategory().getDtoClass());
     }
 
     @Override

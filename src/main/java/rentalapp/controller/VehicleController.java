@@ -6,7 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rentalapp.dto.VehicleDTO;
+import rentalapp.dto.VehicleReqDTO;
 import rentalapp.dto.VehicleSearchResult;
+import rentalapp.entity.VehicleEntity;
 import rentalapp.enums.VehicleCategory;
 import rentalapp.service.VehicleService;
 
@@ -25,6 +27,18 @@ public class VehicleController {
         return vehicleService.getAllVehiclesPaginated(page, size, category);
     }
 
+    @PostMapping
+    public ResponseEntity<VehicleDTO> create(@RequestBody VehicleReqDTO dto) {
+        return new ResponseEntity<>(
+                vehicleService.create(dto), HttpStatus.CREATED
+        );
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<VehicleDTO> update(@PathVariable Integer id, @RequestBody VehicleReqDTO dto) {
+        return ResponseEntity.ok(vehicleService.update(id, dto));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> delete(@PathVariable Integer id) {
         boolean isDeleted = vehicleService.deleteVehicle(id);
@@ -34,5 +48,10 @@ public class VehicleController {
         } else {
             return new ResponseEntity<>(Map.of("message", "Failed to delete vehicle"), HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/{id}")
+    public VehicleDTO get(@PathVariable Integer id) {
+        return vehicleService.get(id);
     }
 }
