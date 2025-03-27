@@ -19,6 +19,6 @@ public class RentalDTO {
     private String identificationCard;
     private String driverLicence;
 
-    private int clientId;
-    private int vehicleId;
+    private String userFirstAndLastName;
+    private String vehicleCodeAndModel;
 }
