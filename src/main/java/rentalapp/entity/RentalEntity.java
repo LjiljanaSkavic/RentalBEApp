@@ -49,10 +49,12 @@ public class RentalEntity {
     @Column(name = "driver_licence")
     private String driverLicence;
 
-    @Basic
-    @Column(name = "client_id")
-    private int clientId;
-    @Basic
-    @Column(name = "vehicle_id")
-    private int vehicleId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    private UserEntity client;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
+    private VehicleEntity vehicle;
+
 }

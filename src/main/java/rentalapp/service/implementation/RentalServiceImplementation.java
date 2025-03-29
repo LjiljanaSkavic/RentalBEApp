@@ -10,14 +10,12 @@ import org.springframework.stereotype.Service;
 import rentalapp.dto.RentalDTO;
 import rentalapp.dto.SearchResult;
 import rentalapp.entity.RentalEntity;
-import rentalapp.entity.UserEntity;
 import rentalapp.repository.RentalRepository;
 import rentalapp.repository.UserRepository;
 import rentalapp.repository.VehicleRepository;
 import rentalapp.service.RentalService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -38,8 +36,8 @@ public class RentalServiceImplementation implements RentalService {
         Page<RentalEntity> rentalEntity = rentalRepository.findAll(pageable);
 
         List<RentalDTO> rentalDTOs = rentalEntity.stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .map(etty -> modelMapper.map(etty, RentalDTO.class))
+                .toList();
 
         return new SearchResult(
                 rentalDTOs,
@@ -48,13 +46,5 @@ public class RentalServiceImplementation implements RentalService {
                 rentalEntity.getNumber(),
                 rentalEntity.getSize()
         );
-    }
-
-    private RentalDTO convertToDTO(RentalEntity rentalEntity) {
-        UserEntity userEntity = userRepository.getReferenceById(rentalEntity.getClientId());
-        RentalDTO rentalDTO = modelMapper.map(rentalEntity, RentalDTO.class);
-        rentalDTO.setUserFirstAndLastName(userEntity.getFirstName() + ' ' + userEntity.getLastName());
-        //TODO: Add vehicle data code and model
-        return rentalDTO;
     }
 }
