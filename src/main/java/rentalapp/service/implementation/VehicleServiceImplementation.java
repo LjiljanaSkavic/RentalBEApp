@@ -43,7 +43,6 @@ public class VehicleServiceImplementation implements VehicleService {
                 vehicleEntities.getNumber(),
                 vehicleEntities.getSize()
         );
-
     }
 
     @Override

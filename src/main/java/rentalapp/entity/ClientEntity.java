@@ -1,17 +1,13 @@
 package rentalapp.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Basic;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import lombok.Data;
 
 @Data
-@Entity
-@Table(name = "client", schema = "rentaldb", catalog = "")
-public class ClientEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
+@Entity(name = "client")
+public class ClientEntity extends UserEntity {
     @Basic
     @Column(name = "card_number")
     private String cardNumber;
@@ -19,8 +15,4 @@ public class ClientEntity {
     @Basic
     @Column(name = "is_blocked")
     private boolean isBlocked;
-
-    @Basic
-    @Column(name = "user_id")
-    private int userId;
 }

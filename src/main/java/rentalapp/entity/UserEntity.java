@@ -5,12 +5,13 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "user", schema = "rentaldb", catalog = "")
+@Table(name = "user", schema = "rentaldb")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Basic
     @Column(name = "first_name")

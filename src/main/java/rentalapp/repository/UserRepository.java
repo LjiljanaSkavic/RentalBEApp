@@ -6,7 +6,7 @@ import rentalapp.entity.UserEntity;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
-    UserEntity findByUsernameAndPassword(String username, String password);
-
-    UserEntity findByIdAndPassword(Integer id, String password);
+//    UserEntity findByUsernameAndPassword(String username, String password);
+//
+//    UserEntity findByIdAndPassword(Integer id, String password);
 }
