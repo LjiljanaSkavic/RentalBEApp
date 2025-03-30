@@ -37,7 +37,7 @@ public class UserEntity {
     @Column(name = "phone")
     private String phone;
 
-    @Basic
-    @Column(name = "profile_picture_id")
-    private int profilePictureId;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "profile_picture_id", referencedColumnName = "id")
+    private FileEntity profilePicture;
 }
