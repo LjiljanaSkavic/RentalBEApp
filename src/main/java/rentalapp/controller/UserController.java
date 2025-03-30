@@ -19,10 +19,10 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public SearchResult<? extends UserDTO> getAllUsers(@RequestParam(defaultValue = "0") int page,
-                                                       @RequestParam(defaultValue = "10") int size,
-                                                       @RequestParam @Nullable UserType type) {
-        return userService.getAll(page, size, type);
+    public SearchResult<? extends UserDTO> getAll(@RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "10") int size,
+                                                  @RequestParam @Nullable UserType type) {
+        return userService.getAllPageable(page, size, type);
     }
 
 //    @PostMapping("/login")

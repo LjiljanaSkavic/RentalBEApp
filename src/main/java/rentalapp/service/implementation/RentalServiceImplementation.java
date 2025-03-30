@@ -32,7 +32,7 @@ public class RentalServiceImplementation implements RentalService {
     private ModelMapper modelMapper;
 
     @Override
-    public SearchResult getAllRentalsPaginated(int page, int size) {
+    public SearchResult getAllPageable(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<RentalEntity> rentalEntity = rentalRepository.findAll(pageable);
 

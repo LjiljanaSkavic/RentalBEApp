@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import rentalapp.dto.ManufacturerDTO;
 import rentalapp.dto.ManufacturerRequest;
-import rentalapp.dto.ManufacturerSearchResult;
+import rentalapp.dto.SearchResult;
 import rentalapp.entity.ManufacturerEntity;
 import rentalapp.repository.ManufacturerRepository;
 import rentalapp.service.ManufacturerService;
@@ -26,7 +26,7 @@ public class ManufacturerServiceImplementation implements ManufacturerService {
     private ModelMapper modelMapper;
 
     @Override
-    public ManufacturerSearchResult getAllManufacturersPaginated(int page, int size) {
+    public SearchResult<ManufacturerDTO> getAllPageable(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<ManufacturerEntity> manufacturerEntities = manufacturerRepository.findAllByIsDeletedFalse(pageable);
 
@@ -34,7 +34,7 @@ public class ManufacturerServiceImplementation implements ManufacturerService {
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
 
-        return new ManufacturerSearchResult(
+        return new SearchResult<ManufacturerDTO>(
                 manufacturerDTOs,
                 manufacturerEntities.getTotalElements(),
                 manufacturerEntities.getTotalPages(),
@@ -43,13 +43,13 @@ public class ManufacturerServiceImplementation implements ManufacturerService {
         );
     }
 
-    public ManufacturerDTO createManufacturer(ManufacturerRequest manufacturerRequest) {
+    public ManufacturerDTO create(ManufacturerRequest manufacturerRequest) {
         var manufacturer = modelMapper.map(manufacturerRequest, ManufacturerEntity.class);
         ManufacturerEntity savedManufacturerEntity = manufacturerRepository.save(manufacturer);
         return convertToDTO(savedManufacturerEntity);
     }
 
-    public ManufacturerDTO updateManufacturer(Integer id, ManufacturerRequest manufacturerRequest) {
+    public ManufacturerDTO update(Integer id, ManufacturerRequest manufacturerRequest) {
         ManufacturerEntity manufacturer = manufacturerRepository.findById(id).orElse(null);
         if (manufacturer == null) {
             return null;
@@ -59,7 +59,7 @@ public class ManufacturerServiceImplementation implements ManufacturerService {
         return convertToDTO(updatedManufacturerEntity);
     }
 
-    public boolean deleteManufacturer(Integer id) {
+    public boolean delete(Integer id) {
         ManufacturerEntity manufacturer = manufacturerRepository.findById(id).orElse(null);
         if (manufacturer == null) {
             return false;

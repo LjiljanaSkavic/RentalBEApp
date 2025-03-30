@@ -34,7 +34,7 @@ public class FileController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Resource> getFileById(@PathVariable Integer id) {
+    public ResponseEntity<Resource> getById(@PathVariable Integer id) {
         try {
             Optional<FileEntity> optionalFile = fileRepository.findByIdAndIsDeletedFalse(id);
             if (optionalFile.isPresent()) {
@@ -61,7 +61,7 @@ public class FileController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<RentalFile> uploadFile(@RequestBody MultipartFile file) {
+    public ResponseEntity<RentalFile> upload(@RequestBody MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }

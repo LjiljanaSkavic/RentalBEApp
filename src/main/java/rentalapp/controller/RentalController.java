@@ -15,8 +15,8 @@ public class RentalController {
     private RentalService rentalService;
 
     @GetMapping
-    public SearchResult getAllVehicles(@RequestParam(defaultValue = "0") int page,
-                                       @RequestParam(defaultValue = "10") int size) {
-        return rentalService.getAllRentalsPaginated(page, size);
+    public SearchResult getAll(@RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "10") int size) {
+        return rentalService.getAllPageable(page, size);
     }
 }

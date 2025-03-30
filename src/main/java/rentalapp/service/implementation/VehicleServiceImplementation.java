@@ -27,7 +27,7 @@ public class VehicleServiceImplementation implements VehicleService {
     private ModelMapper modelMapper;
 
     @Override
-    public SearchResult<? extends VehicleDTO> getAllVehiclesPaginated(int page, int size, VehicleCategory category) {
+    public SearchResult<? extends VehicleDTO> getAllPageable(int page, int size, VehicleCategory category) {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<VehicleEntity> vehicleEntities = vehicleRepositoryFactory.get(category).findAllByIsDeletedFalse(pageable);

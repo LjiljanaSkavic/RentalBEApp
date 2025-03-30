@@ -20,10 +20,10 @@ public class VehicleController {
     private VehicleService vehicleService;
 
     @GetMapping
-    public SearchResult<? extends VehicleDTO> getAllVehicles(@RequestParam(defaultValue = "0") int page,
-                                                             @RequestParam(defaultValue = "10") int size,
-                                                             @RequestParam @Nullable VehicleCategory category) {
-        return vehicleService.getAllVehiclesPaginated(page, size, category);
+    public SearchResult<? extends VehicleDTO> getAll(@RequestParam(defaultValue = "0") int page,
+                                                     @RequestParam(defaultValue = "10") int size,
+                                                     @RequestParam @Nullable VehicleCategory category) {
+        return vehicleService.getAllPageable(page, size, category);
     }
 
     @PostMapping

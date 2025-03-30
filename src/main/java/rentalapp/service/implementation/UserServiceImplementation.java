@@ -33,7 +33,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public SearchResult<? extends UserDTO> getAll(int page, int size, UserType type) {
+    public SearchResult<? extends UserDTO> getAllPageable(int page, int size, UserType type) {
         Pageable pageable = PageRequest.of(page, size);
         Page<? extends UserEntity> userEntities = userRepositoryFactory.get(type).findAll(pageable);
 

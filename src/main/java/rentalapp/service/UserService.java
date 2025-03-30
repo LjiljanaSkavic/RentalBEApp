@@ -9,5 +9,5 @@ public interface UserService {
 //
 //    Employee changePassword(Integer id, PasswordRequest passwordRequest);
 
-    SearchResult<? extends UserDTO> getAll(int page, int size, UserType type);
+    SearchResult<? extends UserDTO> getAllPageable(int page, int size, UserType type);
 }

@@ -2,14 +2,14 @@ package rentalapp.service;
 
 import rentalapp.dto.ManufacturerDTO;
 import rentalapp.dto.ManufacturerRequest;
-import rentalapp.dto.ManufacturerSearchResult;
+import rentalapp.dto.SearchResult;
 
 public interface ManufacturerService {
-    ManufacturerSearchResult getAllManufacturersPaginated(int page, int size);
+    SearchResult<ManufacturerDTO> getAllPageable(int page, int size);
 
-    ManufacturerDTO updateManufacturer(Integer id, ManufacturerRequest manufacturerRequest);
+    ManufacturerDTO update(Integer id, ManufacturerRequest manufacturerRequest);
 
-    boolean deleteManufacturer(Integer id);
+    boolean delete(Integer id);
 
-    ManufacturerDTO createManufacturer(ManufacturerRequest manufacturerRequest);
+    ManufacturerDTO create(ManufacturerRequest manufacturerRequest);
 }

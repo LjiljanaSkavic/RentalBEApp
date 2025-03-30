@@ -6,7 +6,7 @@ import rentalapp.dto.VehicleReqDTO;
 import rentalapp.enums.VehicleCategory;
 
 public interface VehicleService {
-    SearchResult<? extends VehicleDTO> getAllVehiclesPaginated(int page, int size, VehicleCategory category);
+    SearchResult<? extends VehicleDTO> getAllPageable(int page, int size, VehicleCategory category);
 
     VehicleDTO create(VehicleReqDTO dto);
 
