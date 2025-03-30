@@ -12,5 +12,5 @@ public class VehicleDTO {
     private VehicleStatus status;
     private boolean isDeleted;
     private Integer manufacturerId;
-    private Integer vehiclePictureId;
+    private RentalFile image;
 }

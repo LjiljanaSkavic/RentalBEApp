@@ -39,7 +39,7 @@ public class VehicleEntity {
     @Column(name = "manufacturer_id")
     private int manufacturerId;
 
-    @Basic
-    @Column(name = "vehicle_picture_id")
-    private int vehiclePictureId;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "vehicle_picture_id", referencedColumnName = "id")
+    private FileEntity image;
 }
