@@ -152,13 +152,14 @@ VALUES (1, '2024-03-20', '08:00', 'Battery not charging', false, 1),
        (21, '2024-03-22', '16:45', 'Motor failure', false, 7);
 
 -- Insert into rental with updated locations (Banja Luka to other towns)
-INSERT INTO rentaldb.rental (start, end, start_location_lat, start_location_lng, end_location_lat, end_location_lng, duration, identification_card, driver_licence,
+INSERT INTO rentaldb.rental (start, end, start_location_lat, start_location_lng, end_location_lat, end_location_lng,
+                             duration, identification_card, driver_licence,
                              client_id, vehicle_id)
 VALUES ('2024-03-25 10:00:00', '2024-03-25 12:00:00', 44.7732, 17.1910, 43.8486, 18.3564, '02:00:00',
-        '1234567890', 'D1234567', 1, 1), -- Tesla Model 3 rental (Banja Luka to Sarajevo)
+        '1234567890', 'D1234567', 4, 1), -- Tesla Model 3 rental (Banja Luka to Sarajevo)
        ('2024-03-24 08:00:00', '2024-03-24 09:30:00', 44.7732, 17.1910, 44.7716, 18.1473, '01:30:00',
-        '0987654321', 'D7654321', 2, 2), -- Tesla Model X rental (Banja Luka to Doboj)
+        '0987654321', 'D7654321', 5, 2), -- Tesla Model X rental (Banja Luka to Doboj)
        ('2024-03-23 14:00:00', '2024-03-23 16:30:00', 44.7732, 17.1910, 44.8734, 18.8045, '02:30:00',
-        '1122334455', 'D1122334', 1, 3), -- BMW i3 rental (Banja Luka to Brcko)
+        '1122334455', 'D1122334', 4, 3), -- BMW i3 rental (Banja Luka to Brcko)
        ('2024-03-22 11:00:00', '2024-03-22 13:00:00', 44.7732, 17.1910, 43.3438, 17.8070, '02:00:00',
-        '2233445566', 'D2233445', 2, 6); -- Honda E-Bike rental (Banja Luka to Mostar)
+        '2233445566', 'D2233445', 5, 6); -- Honda E-Bike rental (Banja Luka to Mostar)

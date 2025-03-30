@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import rentalapp.dto.ClientDTO;
 import rentalapp.dto.RentalDTO;
 import rentalapp.dto.SearchResult;
 import rentalapp.entity.RentalEntity;
@@ -36,7 +37,12 @@ public class RentalServiceImplementation implements RentalService {
         Page<RentalEntity> rentalEntity = rentalRepository.findAll(pageable);
 
         List<RentalDTO> rentalDTOs = rentalEntity.stream()
-                .map(etty -> modelMapper.map(etty, RentalDTO.class))
+                .map(etty -> {
+                    var dto = modelMapper.map(etty, RentalDTO.class);
+                    //TODO: See if there is more elegant solution
+                    dto.setClient(modelMapper.map(etty.getClient(), ClientDTO.class));
+                    return dto;
+                })
                 .toList();
 
         return new SearchResult(
