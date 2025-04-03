@@ -8,7 +8,7 @@ VALUES (1, 'profile_pic_admin.jpg', 'src/main/resources/uploads/profile_pic_admi
 
 -- Insert into user
 INSERT INTO rentaldb.user (id, first_name, last_name, username, password, email, phone, profile_picture_id)
-VALUES (1, 'Admin', 'Admin', 'admin_admin', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918',
+VALUES (1, 'Admin', 'Admin', 'admin_admin', '9ce1eb62332a144b0a752460f9e789b2e4a6d7403d2e18041c4e80352db736c51fd247301e079cef9ede13dfdcf3d040a3f0843e4d92073fdea29f5838c421f3',
         'admin@gmail.com', '+123456789', 1),
        (2, 'Jane', 'Smith', 'jane_smith',
         '1dde1123436545181e16f999462e21b51e9e88da7f1f11475ba5a87b24c4c25adec2b73933b7f9f454b297089a0404e5f6a3826db7d41e5cbcd70143b01e17e6',
@@ -85,13 +85,13 @@ VALUES (1, 'Tesla', 'USA', '3500 Deer Creek Road, Palo Alto, CA', 'contact@tesla
 
 -- Insert into file (vehicle images)
 INSERT INTO rentaldb.file (id, name, path, type, is_deleted)
-VALUES (6, 'tesla_model3.jpg', '/images/tesla_model3.jpg', 'image/jpeg', 0),
-       (7, 'tesla_modelx.jpg', '/images/tesla_modelx.jpg', 'image/jpeg', 0),
-       (8, 'yamaha_ebike.jpg', '/images/yamaha_ebike.jpg', 'image/jpeg', 0),
-       (9, 'yamaha_escooter.jpg', '/images/yamaha_escooter.jpg', 'image/jpeg', 0),
-       (10, 'bmw_i3.jpg', '/images/bmw_i3.jpg', 'image/jpeg', 0),
-       (11, 'honda_ebike.jpg', '/images/honda_ebike.jpg', 'image/jpeg', 0),
-       (12, 'honda_escooter.jpg', '/images/honda_escooter.jpg', 'image/jpeg', 0);
+VALUES (6, 'tesla_model3.jpg', 'src/main/resources/uploads/tesla_model3.jpg', 'image/jpg', 0),
+       (7, 'tesla_modelx.jpg', 'src/main/resources/uploads/tesla_modelx.jpg', 'image/jpg', 0),
+       (8, 'yamaha_ebike.jpg', 'src/main/resources/uploads/yamaha_ebike.jpg', 'image/jpg', 0),
+       (9, 'yamaha_escooter.jpg', 'src/main/resources/uploads/yamaha_escooter.jpg', 'image/jpg', 0),
+       (10, 'bmw_i3.jpg', 'src/main/resources/uploads/bmw_i3.jpg', 'image/jpg', 0),
+       (11, 'honda_ebike.jpg', 'src/main/resources/uploads/honda_ebike.jpg', 'image/jpg', 0),
+       (12, 'honda_escooter.jpg', 'src/main/resources/uploads/honda_escooter.jpg', 'image/jpg', 0);
 
 -- Insert into vehicle with populated vehicle_type
 INSERT INTO rentaldb.vehicle (id, vehicle_code, purchase_price, model, status, is_deleted, manufacturer_id,

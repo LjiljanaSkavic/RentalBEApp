@@ -1,5 +1,6 @@
 package rentalapp.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -28,9 +29,14 @@ public class FileController {
     @Autowired
     private FileRepository fileRepository;
 
+    @Autowired
+    private final ModelMapper modelMapper;
 
-    public FileController(FileRepository fileRepository) {
+
+    public FileController(FileRepository fileRepository,
+                          ModelMapper modelMapper) {
         this.fileRepository = fileRepository;
+        this.modelMapper = modelMapper;
     }
 
     @GetMapping("/{id}")
@@ -81,13 +87,7 @@ public class FileController {
             uploadedFile.setDeleted(false);
 
             FileEntity savedFile = fileRepository.save(uploadedFile);
-
-            RentalFile fileDto = new RentalFile();
-            fileDto.setId(savedFile.getId());
-            fileDto.setName(savedFile.getName());
-            fileDto.setPath(savedFile.getPath());
-            fileDto.setType(savedFile.getType());
-
+            RentalFile fileDto = modelMapper.map(savedFile, RentalFile.class);
             return ResponseEntity.ok(fileDto);
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

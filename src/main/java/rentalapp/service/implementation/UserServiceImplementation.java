@@ -77,7 +77,6 @@ public class UserServiceImplementation implements UserService {
             employeeEntity.setPassword(passwordRequest.getNewPassword());
             employeeRepository.save(employeeEntity);
             return modelMapper.map(employeeEntity, EmployeeDTO.class);
-
         }
         return null;
     }

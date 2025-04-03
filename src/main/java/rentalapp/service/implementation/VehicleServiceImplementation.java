@@ -9,13 +9,16 @@ import org.springframework.stereotype.Service;
 import rentalapp.dto.SearchResult;
 import rentalapp.dto.VehicleDTO;
 import rentalapp.dto.VehicleReqDTO;
+import rentalapp.entity.FileEntity;
 import rentalapp.entity.VehicleEntity;
 import rentalapp.enums.VehicleCategory;
+import rentalapp.repository.FileRepository;
 import rentalapp.repository.VehicleRepository;
 import rentalapp.repository.VehicleRepositoryFactory;
 import rentalapp.service.VehicleService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VehicleServiceImplementation implements VehicleService {
@@ -25,6 +28,9 @@ public class VehicleServiceImplementation implements VehicleService {
     private VehicleRepositoryFactory vehicleRepositoryFactory;
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private FileRepository fileRepository;
 
     @Override
     public SearchResult<? extends VehicleDTO> getAllPageable(int page, int size, VehicleCategory category) {
@@ -48,6 +54,14 @@ public class VehicleServiceImplementation implements VehicleService {
     @Override
     public VehicleDTO update(Integer id, VehicleReqDTO dto) {
         VehicleEntity vehicleEntity = vehicleRepository.findById(id).orElseThrow();
+
+        if (dto.getVehiclePictureId() != vehicleEntity.getImage().getId()) {
+            Optional<FileEntity> fileEntity = fileRepository.findById(dto.getVehiclePictureId());
+            if (fileEntity.isPresent()) {
+                vehicleEntity.setImage(fileEntity.get());
+            }
+        }
+
         modelMapper.map(dto, vehicleEntity);
         vehicleEntity.setId(id);
         vehicleRepository.save(vehicleEntity);
@@ -67,7 +81,10 @@ public class VehicleServiceImplementation implements VehicleService {
     @Override
     public VehicleDTO create(VehicleReqDTO dto) {
         VehicleEntity vehicleEntity = modelMapper.map(dto, dto.getCategory().getEttyClass());
-        vehicleEntity.setId(null);
+        Optional<FileEntity> fileEntity = fileRepository.findById(dto.getVehiclePictureId());
+        if (fileEntity.isPresent()) {
+            vehicleEntity.setImage(fileEntity.get());
+        }
         vehicleRepository.save(vehicleEntity);
         return modelMapper.map(vehicleEntity, dto.getCategory().getDtoClass());
     }
