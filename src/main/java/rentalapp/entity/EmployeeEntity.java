@@ -11,4 +11,8 @@ public class EmployeeEntity extends UserEntity {
     @Basic
     @Column(name = "role")
     private String role;
+
+    @Basic
+    @Column(name = "is_deleted")
+    private boolean isDeleted;
 }

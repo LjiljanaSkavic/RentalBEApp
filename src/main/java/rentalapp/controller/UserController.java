@@ -53,4 +53,9 @@ public class UserController {
     public ResponseEntity<?> update(@PathVariable Integer id) {
         return ResponseEntity.ok(userService.manageBlock(id));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+        return ResponseEntity.ok(userService.deleteById(id));
+    }
 }

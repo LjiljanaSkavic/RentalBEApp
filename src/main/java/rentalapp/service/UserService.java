@@ -15,4 +15,6 @@ public interface UserService {
     EmployeeDTO changePassword(Integer id, PasswordRequest passwordRequest);
 
     boolean manageBlock(Integer id);
+
+    boolean deleteById(Integer id);
 }

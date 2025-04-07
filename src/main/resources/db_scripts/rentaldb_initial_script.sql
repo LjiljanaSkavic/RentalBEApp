@@ -24,10 +24,10 @@ VALUES (1, 'Admin', 'Admin', 'admin_admin', '9ce1eb62332a144b0a752460f9e789b2e4a
         'john.doe@gmai.com', '+987681261', 5);
 
 -- Insert into employee
-INSERT INTO rentaldb.employee (id, role)
-VALUES (1, 'Admin'),
-       (2, 'Manager'),
-       (3, 'Operator');
+INSERT INTO rentaldb.employee (id, role, is_deleted)
+VALUES (1, 'Admin', false),
+       (2, 'Manager', false),
+       (3, 'Operator', false);
 
 -- Insert into client
 INSERT INTO rentaldb.client (id, card_number, is_blocked)

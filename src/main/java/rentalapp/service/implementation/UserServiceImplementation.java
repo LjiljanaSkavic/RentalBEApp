@@ -95,4 +95,20 @@ public class UserServiceImplementation implements UserService {
         }
         return true;
     }
+
+    public boolean deleteById(Integer id) {
+        EmployeeEntity employee = employeeRepository.findById(id).orElse(null);
+        if (employee == null) {
+            return false;
+        }
+
+        employee.setDeleted(true);
+        try {
+            this.employeeRepository.save(employee);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
 }
