@@ -10,13 +10,11 @@ import rentalapp.dto.EmployeeDTO;
 import rentalapp.dto.PasswordRequest;
 import rentalapp.dto.SearchResult;
 import rentalapp.dto.UserDTO;
+import rentalapp.entity.ClientEntity;
 import rentalapp.entity.EmployeeEntity;
 import rentalapp.entity.UserEntity;
 import rentalapp.enums.UserType;
-import rentalapp.repository.EmployeeRepository;
-import rentalapp.repository.FileRepository;
-import rentalapp.repository.UserRepository;
-import rentalapp.repository.UserRepositoryFactory;
+import rentalapp.repository.*;
 import rentalapp.service.UserService;
 
 import java.util.List;
@@ -33,6 +31,8 @@ public class UserServiceImplementation implements UserService {
     private UserRepositoryFactory userRepositoryFactory;
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private ClientRepository clientRepository;
 
     public UserServiceImplementation(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
@@ -79,5 +79,20 @@ public class UserServiceImplementation implements UserService {
             return modelMapper.map(employeeEntity, EmployeeDTO.class);
         }
         return null;
+    }
+
+    public boolean manageBlock(Integer id) {
+        ClientEntity client = clientRepository.findById(id).orElse(null);
+        if (client == null) {
+            return false;
+        }
+
+        client.setBlocked(!client.isBlocked());
+        try {
+            this.clientRepository.save(client);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 }

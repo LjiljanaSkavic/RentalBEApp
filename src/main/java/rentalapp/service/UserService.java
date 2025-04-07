@@ -13,4 +13,6 @@ public interface UserService {
     SearchResult<? extends UserDTO> getAllPageable(int page, int size, UserType type);
 
     EmployeeDTO changePassword(Integer id, PasswordRequest passwordRequest);
+
+    boolean manageBlock(Integer id);
 }

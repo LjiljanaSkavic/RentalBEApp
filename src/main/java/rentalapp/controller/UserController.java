@@ -48,4 +48,9 @@ public class UserController {
             throw e;
         }
     }
+
+    @PostMapping("/manage-block/{id}")
+    public ResponseEntity<?> update(@PathVariable Integer id) {
+        return ResponseEntity.ok(userService.manageBlock(id));
+    }
 }
