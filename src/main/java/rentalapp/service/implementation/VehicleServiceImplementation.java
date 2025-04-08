@@ -81,20 +81,24 @@ public class VehicleServiceImplementation implements VehicleService {
     }
 
     @Override
-    public VehicleDetailsDTO getDetails(Integer id) {
+    public VehicleDTO getDetails(Integer id) {
         VehicleDTO vehicleDTO = this.get(id);
-        VehicleDetailsDTO vehicleDetailsDTO = this.modelMapper.map(vehicleDTO, VehicleDetailsDTO.class);
+
+//        var vehicleDetailsDTO = this.modelMapper.map(vehicleDTO, VehicleDetailsDTO.class);
+
         List<RentalEntity> rentalEntities = this.rentalRepository.findAllByVehicleId(id);
-        List<MalfunctionEntity> malfunctionEntities = this.malfunctionRepository.findAllByVehicleId(id);
         List<RentalDTO> rentalDTOS = rentalEntities.stream()
                 .map(obj -> modelMapper.map(obj, RentalDTO.class))
                 .toList();
+        vehicleDTO.setRentals(rentalDTOS);
+
+        List<MalfunctionEntity> malfunctionEntities = this.malfunctionRepository.findAllByVehicleId(id);
         List<MalfunctionDTO> malfunctionDTOS = malfunctionEntities.stream()
                 .map(obj -> modelMapper.map(obj, MalfunctionDTO.class))
                 .toList();
-        vehicleDetailsDTO.setRentals(rentalDTOS);
-        vehicleDetailsDTO.setMalfunctions(malfunctionDTOS);
-        return vehicleDetailsDTO;
+        vehicleDTO.setMalfunctions(malfunctionDTOS);
+
+        return vehicleDTO;
     }
 
     @Override

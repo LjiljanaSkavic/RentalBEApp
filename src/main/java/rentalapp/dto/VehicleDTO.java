@@ -3,6 +3,8 @@ package rentalapp.dto;
 import lombok.Data;
 import rentalapp.enums.VehicleStatus;
 
+import java.util.List;
+
 @Data
 public class VehicleDTO {
     private Integer id;
@@ -13,4 +15,6 @@ public class VehicleDTO {
     private boolean isDeleted;
     private Integer manufacturerId;
     private RentalFile image;
+    private List<RentalDTO> rentals;
+    private List<MalfunctionDTO> malfunctions;
 }
