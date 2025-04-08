@@ -51,6 +51,6 @@ public class VehicleController {
 
     @GetMapping("/{id}")
     public VehicleDTO get(@PathVariable Integer id) {
-        return vehicleService.get(id);
+        return vehicleService.getDetails(id);
     }
 }

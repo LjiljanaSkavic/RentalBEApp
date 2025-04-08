@@ -6,15 +6,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import rentalapp.dto.SearchResult;
-import rentalapp.dto.VehicleDTO;
-import rentalapp.dto.VehicleReqDTO;
+import rentalapp.dto.*;
 import rentalapp.entity.FileEntity;
+import rentalapp.entity.MalfunctionEntity;
+import rentalapp.entity.RentalEntity;
 import rentalapp.entity.VehicleEntity;
 import rentalapp.enums.VehicleCategory;
-import rentalapp.repository.FileRepository;
-import rentalapp.repository.VehicleRepository;
-import rentalapp.repository.VehicleRepositoryFactory;
+import rentalapp.repository.*;
 import rentalapp.service.VehicleService;
 
 import java.util.List;
@@ -24,6 +22,10 @@ import java.util.Optional;
 public class VehicleServiceImplementation implements VehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
+    @Autowired
+    private MalfunctionRepository malfunctionRepository;
+    @Autowired
+    private RentalRepository rentalRepository;
     @Autowired
     private VehicleRepositoryFactory vehicleRepositoryFactory;
     @Autowired
@@ -76,6 +78,23 @@ public class VehicleServiceImplementation implements VehicleService {
                 vehicleEntity,
                 VehicleCategory.fromEttyClass(vehicleEntity.getClass()).getDtoClass()
         );
+    }
+
+    @Override
+    public VehicleDetailsDTO getDetails(Integer id) {
+        VehicleDTO vehicleDTO = this.get(id);
+        VehicleDetailsDTO vehicleDetailsDTO = this.modelMapper.map(vehicleDTO, VehicleDetailsDTO.class);
+        List<RentalEntity> rentalEntities = this.rentalRepository.findAllByVehicleId(id);
+        List<MalfunctionEntity> malfunctionEntities = this.malfunctionRepository.findAllByVehicleId(id);
+        List<RentalDTO> rentalDTOS = rentalEntities.stream()
+                .map(obj -> modelMapper.map(obj, RentalDTO.class))
+                .toList();
+        List<MalfunctionDTO> malfunctionDTOS = malfunctionEntities.stream()
+                .map(obj -> modelMapper.map(obj, MalfunctionDTO.class))
+                .toList();
+        vehicleDetailsDTO.setRentals(rentalDTOS);
+        vehicleDetailsDTO.setMalfunctions(malfunctionDTOS);
+        return vehicleDetailsDTO;
     }
 
     @Override

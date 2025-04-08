@@ -53,4 +53,18 @@ public class RentalServiceImplementation implements RentalService {
                 rentalEntity.getSize()
         );
     }
+
+    @Override
+    public List<RentalDTO> getAllByVehicleId(Integer id) {
+        List<RentalEntity> rentalEntities = this.rentalRepository.findAllByVehicleId(id);
+        List<RentalDTO> rentals = rentalEntities.stream()
+                .map(etty -> {
+                    var dto = modelMapper.map(etty, RentalDTO.class);
+                    //TODO: See if there is more elegant solution
+                    dto.setClient(modelMapper.map(etty.getClient(), ClientDTO.class));
+                    return dto;
+                })
+                .toList();
+        return rentals;
+    }
 }
